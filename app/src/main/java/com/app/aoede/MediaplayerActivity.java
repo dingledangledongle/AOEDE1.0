@@ -46,4 +46,8 @@ public class MediaplayerActivity extends AppCompatActivity {
                 .setBlurEnabled(true);
 
     }
+
+    public void returnToPrevious(View view) {
+        finish();
+    }
 }
