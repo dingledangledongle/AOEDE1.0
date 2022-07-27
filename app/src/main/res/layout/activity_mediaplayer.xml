@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MediaplayerActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="700dp"
+        android:layout_height="700dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/blue" />
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:blurOverlayColor="#99000000"
+        app:layout_constraintBottom_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageAlbumArt"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:adjustViewBounds="false"
+                android:background="#808080"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.139"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:id="@+id/txtSongTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:fontFamily="@font/roboto"
+                android:text="Song Title"
+                android:textColor="@color/mainWhite"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias=".1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageAlbumArt" />
+
+            <TextView
+                android:id="@+id/txtArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="Artist"
+                android:textColor="@color/mainWhite"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/txtSongTitle"
+                app:layout_constraintTop_toBottomOf="@+id/txtSongTitle" />
+
+            <SeekBar
+                android:id="@+id/progressBar"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:progressBackgroundTint="@color/mainGrey"
+                android:progressTint="@color/mainWhite"
+                android:thumbTint="#E5E5E5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtArtist" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="#00FFFEFE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                app:srcCompat="@android:drawable/ic_media_play" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:background="#00FFFFFF"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="@+id/imageButton"
+                app:srcCompat="@android:drawable/ic_media_next" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="60dp"
+                android:background="#00FFFFFF"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="@+id/imageButton"
+                app:srcCompat="@android:drawable/ic_media_previous" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </eightbitlab.com.blurview.BlurView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

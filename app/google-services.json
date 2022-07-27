@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599793119530",
+    "project_id": "aoede-f42dc",
+    "storage_bucket": "aoede-f42dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599793119530:android:76e8e1d8a19282f99c6e53",
+        "android_client_info": {
+          "package_name": "com.app.aoede"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599793119530-21em7kecv2hmf71sfn8nmdu5sjh1se43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2P8Epu0Y34B4qVpxuPTpkU_-okJRec8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599793119530-21em7kecv2hmf71sfn8nmdu5sjh1se43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
