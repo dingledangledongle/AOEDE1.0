@@ -36,13 +36,15 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
+        //setting up bottom navigation bar and top app bar
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_dashboard,R.id.navigation_library,R.id.navigation_home,R.id.navigation_notifications)
+                R.id.navigation_search,R.id.navigation_library,R.id.navigation_home,R.id.navigation_settings)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        //blurring
         blurView = findViewById(R.id.blurViewMain);
         blurBackground();
 
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 .setBlurEnabled(true);
     }
 
+    //logging user out
     public void logOut(View view) {
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(MainActivity.this,"SUCCESSFULLY LOGGED OUT",Toast.LENGTH_SHORT).show();
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //start MediaplayerActivity
     public void goToMediaplayer(View view) {
         startActivity(new Intent(MainActivity.this,MediaplayerActivity.class));
     }

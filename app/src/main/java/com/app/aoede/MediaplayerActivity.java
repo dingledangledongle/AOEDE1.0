@@ -19,7 +19,8 @@ public class MediaplayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mediaplayer);
-        
+
+        //Set Blur
         blurView = findViewById(R.id.blurViewMediaplayer);
         blurBackground();
 
@@ -28,7 +29,7 @@ public class MediaplayerActivity extends AppCompatActivity {
     }
 
 
-
+    //BLUR BACKGROUND
     private void blurBackground() {
         float radius = 21f;
 
@@ -45,6 +46,7 @@ public class MediaplayerActivity extends AppCompatActivity {
 
     }
 
+    //return to previous activity
     public void returnToPrevious(View view) {
         finish();
     }

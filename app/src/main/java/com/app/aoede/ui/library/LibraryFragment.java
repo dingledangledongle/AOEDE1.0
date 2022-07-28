@@ -8,24 +8,22 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.app.aoede.databinding.FragmentNotificationsBinding;
+import com.app.aoede.databinding.FragmentLibraryBinding;
+
 
 public class LibraryFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentLibraryBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         LibraryViewModel libraryViewModel =
                 new ViewModelProvider(this).get(LibraryViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentLibraryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        libraryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
 
         }

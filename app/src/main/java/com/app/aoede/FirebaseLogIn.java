@@ -22,6 +22,7 @@ public class FirebaseLogIn extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogIn);
         btnTest = findViewById(R.id.btnTest);
 
+        //Go to register page
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +32,7 @@ public class FirebaseLogIn extends AppCompatActivity {
             }
         });
 
+        //Go to login page
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

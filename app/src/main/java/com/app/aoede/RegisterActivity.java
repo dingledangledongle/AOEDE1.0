@@ -34,12 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //Registering User
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailInput = txtEmail.getText().toString();
                 String passwordInput = txtPassword.getText().toString();
 
+                //Checking for user errors
                 if (TextUtils.isEmpty(emailInput)|| TextUtils.isEmpty(passwordInput)){
                     Toast.makeText(RegisterActivity.this,"EMPTY CREDENTIALS",Toast.LENGTH_SHORT).show();
 
@@ -54,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    //Registering user to firebase
     private void registerUser(String emailInput, String passwordInput) {
         mAuth.createUserWithEmailAndPassword(emailInput,passwordInput).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override

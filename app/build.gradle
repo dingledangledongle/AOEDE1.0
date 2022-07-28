@@ -55,6 +55,6 @@ dependencies {
     //SPOTIFY DEPENDENCIES
     implementation 'com.github.kaaes:spotify-web-api-android:0.4.1'
     implementation 'com.spotify.android:auth:2.0.2'
-    implementation('xyz.gianlu.librespot:librespot-player:1.6.2:thin')
+//    implementation('xyz.gianlu.librespot:librespot-player:1.6.2:thin')
 
 }

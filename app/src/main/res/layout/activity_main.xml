@@ -93,15 +93,20 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/darkGrey"
+                android:backgroundTint="@color/mainGrey" />
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/nav_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#A9E5E5E5"
                 app:elevation="0dp"
-                app:menu="@menu/bottom_nav_menu">
-
-            </com.google.android.material.bottomnavigation.BottomNavigationView>
+                app:menu="@menu/bottom_nav_menu"/>
 
         </LinearLayout>
 
