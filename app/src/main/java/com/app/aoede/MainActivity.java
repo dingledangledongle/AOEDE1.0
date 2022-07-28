@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,18 +35,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications,R.id.navigation_library)
-                .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_dashboard,R.id.navigation_library,R.id.navigation_home,R.id.navigation_notifications)
+                .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         blurView = findViewById(R.id.blurViewMain);
         blurBackground();
-
 
     }
 
@@ -70,5 +69,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this,FirebaseLogIn.class),
                 ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
 
+    }
+
+    public void goToMediaplayer(View view) {
+        startActivity(new Intent(MainActivity.this,MediaplayerActivity.class));
     }
 }

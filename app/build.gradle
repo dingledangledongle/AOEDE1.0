@@ -12,6 +12,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [redirectSchemeName: "spotify-sdk", redirectHostName: "auth"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,4 +51,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.google.firebase:firebase-auth:21.0.6'
     implementation 'com.github.Dimezis:BlurView:version-2.0.2'
+
+    //SPOTIFY DEPENDENCIES
+    implementation 'com.github.kaaes:spotify-web-api-android:0.4.1'
+    implementation 'com.spotify.android:auth:2.0.2'
+    implementation('xyz.gianlu.librespot:librespot-player:1.6.2:thin')
+
 }

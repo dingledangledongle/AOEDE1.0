@@ -25,11 +25,9 @@ public class MediaplayerActivity extends AppCompatActivity {
 
         seekBar = findViewById(R.id.progressBar);
 
-        if (getSupportActionBar() != null){
-            getSupportActionBar().hide();
-        }
-
     }
+
+
 
     private void blurBackground() {
         float radius = 21f;
