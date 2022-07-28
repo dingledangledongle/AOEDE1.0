@@ -42,8 +42,7 @@ public class FirebaseLogIn extends AppCompatActivity {
         btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FirebaseLogIn.this,MediaplayerActivity.class
-                ));
+                startActivity(new Intent(FirebaseLogIn.this,MediaplayerActivity.class));
             }
         });
     }

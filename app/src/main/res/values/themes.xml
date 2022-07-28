@@ -16,8 +16,8 @@
         <!-- enable window content transitions -->
         <item name="android:windowActivityTransitions">true</item>
         <!-- SET UP EXIT AND ENTER TRANSITION -->
-        <item name="android:windowEnterTransition">@transition/slide</item>
-        <item name="android:windowExitTransition">@transition/slide</item>
+        <item name="android:windowEnterTransition">@transition/slideright</item>
+        <item name="android:windowExitTransition">@transition/slideright</item>
 
 
 

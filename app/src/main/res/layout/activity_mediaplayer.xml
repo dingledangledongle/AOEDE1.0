@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MediaplayerActivity">
+    tools:context=".MediaplayerActivity"
+    android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
 
     <ImageView
@@ -18,9 +19,11 @@
         app:srcCompat="@drawable/blue" />
 
     <eightbitlab.com.blurview.BlurView
-        android:id="@+id/blurView"
+        android:id="@+id/blurViewMediaplayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:outlineAmbientShadowColor="#101010"
+        android:outlineSpotShadowColor="#000000"
         app:blurOverlayColor="#99000000"
         app:layout_constraintBottom_toTopOf="parent">
 
@@ -49,13 +52,13 @@
                 android:adjustViewBounds="false"
                 android:background="#808080"
                 android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.496"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.139"
+                app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded"
                 app:srcCompat="@drawable/ic_launcher_foreground" />
 
             <TextView

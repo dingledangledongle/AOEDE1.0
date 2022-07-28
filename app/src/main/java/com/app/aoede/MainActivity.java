@@ -2,9 +2,10 @@ package com.app.aoede;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -18,12 +19,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.app.aoede.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-
-    private Button btnLogOut;
-
+    BlurView blurView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,25 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        blurView = findViewById(R.id.blurViewMain);
+        blurBackground();
 
+
+    }
+
+    private void blurBackground() {
+        float radius = 18f;
+
+        View decorView = getWindow().getDecorView();
+        ViewGroup rootView = decorView.findViewById(android.R.id.content);
+
+
+        Drawable windowBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView, new RenderScriptBlur(this))
+                .setFrameClearDrawable(windowBackground)
+                .setBlurRadius(radius)
+                .setBlurEnabled(true);
     }
 
     public void logOut(View view) {

@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
@@ -22,13 +20,14 @@ public class MediaplayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mediaplayer);
         
-        blurView = findViewById(R.id.blurView);
+        blurView = findViewById(R.id.blurViewMediaplayer);
         blurBackground();
 
         seekBar = findViewById(R.id.progressBar);
 
-
-
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
 
     }
 
@@ -42,6 +41,7 @@ public class MediaplayerActivity extends AppCompatActivity {
         Drawable windowBackground = decorView.getBackground();
 
         blurView.setupWith(rootView, new RenderScriptBlur(this))
+                .setFrameClearDrawable(windowBackground)
                 .setBlurRadius(radius)
                 .setBlurEnabled(true);
 
