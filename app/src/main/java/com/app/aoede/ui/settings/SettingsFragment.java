@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.aoede.R;
 import com.app.aoede.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
@@ -26,8 +30,21 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSettings;
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        View view = inflater.inflate(R.layout.fragment_settings, container,false);
+        ImageView txtProfile = view.findViewById(R.id.fwardArrow);
+
+        txtProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new SettingsProfile();
+                FragmentManager manager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.settings_profile, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         return root;
     }
 
@@ -36,4 +53,6 @@ public class SettingsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }

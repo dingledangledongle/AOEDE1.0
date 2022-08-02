@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             loginUser(email,password);
         }
 
+
         //Logging the user in
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

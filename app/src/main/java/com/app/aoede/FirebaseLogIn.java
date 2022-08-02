@@ -38,12 +38,17 @@ public class FirebaseLogIn extends AppCompatActivity {
         btnTest = findViewById(R.id.btnTest);
         btnGoogle = findViewById(R.id.btnGoogle);
 
+
         //GOOGLE SIGN IN
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if(account != null){
+            startActivity(new Intent(this, MainActivity.class));
+        }
         
         //Go to register page
         btnRegister.setOnClickListener(new View.OnClickListener() {
