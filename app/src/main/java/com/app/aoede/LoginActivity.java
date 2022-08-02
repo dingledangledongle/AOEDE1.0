@@ -63,10 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("email",emailInput);
                         editor.putString("password",passwordInput);
                         editor.apply();
-                        loginUser(emailInput,passwordInput);
+                        loginUser(emailInput, passwordInput);
                     }
                 }else if (checkboxState.equals("false")){
-                    loginUser(emailInput,passwordInput);
+                    loginUser(emailInput, passwordInput);
                 }
 
 

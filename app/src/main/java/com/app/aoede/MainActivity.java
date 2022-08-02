@@ -4,13 +4,21 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     BlurView blurView;
+    GoogleSignInOptions googleSignInOptions;
+    GoogleSignInClient googleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
         blurView = findViewById(R.id.blurViewMain);
         blurBackground();
 
+        //GOOGLE SIGN OUT
+        googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions);
+        GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(googleAccount != null){
+            Log.d("ACCOUNT HANDLER", googleAccount + "");
+        }
+
     }
 
     private void blurBackground() {
@@ -67,11 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
     //logging user out
     public void logOut(View view) {
-        FirebaseAuth.getInstance().signOut();
-        Toast.makeText(MainActivity.this,"SUCCESSFULLY LOGGED OUT",Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(MainActivity.this,FirebaseLogIn.class),
-                ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+        GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (googleAccount != null){
+            googleSignOut();
+            Log.d("ACCOUNT HANDLER", "GOOGLE SIGN OUT");
+        }else{
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MainActivity.this,"SUCCESSFULLY LOGGED OUT",Toast.LENGTH_SHORT).show();
+            Log.d("ACCOUNT HANDLER", "FIREBASE SIGN OUT");
+            startActivity(new Intent(MainActivity.this,FirebaseLogIn.class),
+                    ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
+        }
+    }
 
+    //Google sign out
+    private void googleSignOut() {
+        googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),FirebaseLogIn.class));
+            }
+        });
     }
 
     //start MediaplayerActivity
