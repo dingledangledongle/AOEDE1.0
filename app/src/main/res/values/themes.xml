@@ -22,4 +22,10 @@
 
 
     </style>
+    <style name="Theme.AOEDE.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.AOEDE.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AOEDE.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -17,38 +18,24 @@ import com.app.aoede.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
 
-    private FragmentSettingsBinding binding;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SettingsViewModel settingsViewModel =
-                new ViewModelProvider(this).get(SettingsViewModel.class);
-
-        binding = FragmentSettingsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
         View view = inflater.inflate(R.layout.fragment_settings, container,false);
-        ImageView txtProfile = view.findViewById(R.id.fwardArrow);
+        Button btnProfile = view.findViewById(R.id.btnProfile);
 
-        txtProfile.setOnClickListener(new View.OnClickListener() {
+        btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new SettingsProfile();
-                FragmentManager manager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.settings_profile, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Fragment settingsProfile = new SettingsProfile();
+                FragmentTransaction manager = requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction();
+                manager.replace(R.id.container,settingsProfile).commit();
             }
         });
 
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+        return view;
     }
 
 

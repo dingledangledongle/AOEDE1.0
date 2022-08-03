@@ -12,9 +12,6 @@ import com.app.aoede.R;
 
 public class SettingsProfile extends Fragment {
 
-    public SettingsProfile() {
-        // Required empty public constructor
-    }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -26,4 +23,6 @@ public class SettingsProfile extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings_profile, container, false);
     }
+
+
 }

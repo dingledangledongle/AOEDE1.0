@@ -121,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
     public void goToMediaplayer(View view) {
         startActivity(new Intent(MainActivity.this,MediaplayerActivity.class));
     }
+
 }

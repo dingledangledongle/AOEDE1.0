@@ -111,4 +111,8 @@ public class FirebaseLogIn extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+
+    public void goToSpotify(View view) {
+        startActivity(new Intent(this, SpotifyActivity.class));
+    }
 }
