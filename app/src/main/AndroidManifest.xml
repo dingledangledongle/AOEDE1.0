@@ -21,8 +21,8 @@
         <intent-filter>
             <category android:name="android.intent.category.BROWSABLE"/>
             <data
-                android:host="aoede.com/callback/"
-                android:scheme="https"/>
+                android:host="com.app.aoede/callback/"
+                android:scheme="http"/>
         </intent-filter>
         </activity>
         <activity

@@ -4,19 +4,23 @@
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_dashboard_settings"
-        android:title="@string/title_settings" />
+        android:title="@string/title_settings"
+        android:menuCategory="secondary"/>
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        android:menuCategory="secondary"/>
 
     <item
         android:id="@+id/navigation_library"
         android:icon="@drawable/ic_dashboard_library"
-        android:title="@string/title_library" />
+        android:title="@string/title_library"
+        android:menuCategory="secondary"/>
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
-        android:title="@string/title_search" />
+        android:title="@string/title_search"
+        android:menuCategory="secondary"/>
 
 </menu>

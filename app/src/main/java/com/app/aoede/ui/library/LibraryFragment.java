@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.aoede.R;
 import com.app.aoede.databinding.FragmentLibraryBinding;
 
 
@@ -18,20 +19,11 @@ public class LibraryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        LibraryViewModel libraryViewModel =
-                new ViewModelProvider(this).get(LibraryViewModel.class);
 
-        binding = FragmentLibraryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_library,container,false);
 
-        return root;
+        return view;
 
         }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
     }

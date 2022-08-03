@@ -7,10 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.app.aoede.ui.home.HomeFragment;
+import com.app.aoede.ui.library.LibraryFragment;
+import com.app.aoede.ui.search.SearchFragment;
+import com.app.aoede.ui.settings.SettingsFragment;
 import com.app.aoede.ui.settings.SettingsProfile;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -38,7 +43,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    ActivityMainBinding binding;
     BlurView blurView;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
@@ -48,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
 
         //setting up bottom navigation bar and top app bar
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //METHODS
     private void blurBackground() {
         float radius = 18f;
 
@@ -121,5 +125,10 @@ public class MainActivity extends AppCompatActivity {
     public void goToMediaplayer(View view) {
         startActivity(new Intent(MainActivity.this,MediaplayerActivity.class));
     }
+
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 
 }

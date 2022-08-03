@@ -1,40 +1,57 @@
 package com.app.aoede;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import java.io.IOException;
+
+import kaaes.spotify.webapi.android.SpotifyApi;
+import kaaes.spotify.webapi.android.SpotifyService;
+import kaaes.spotify.webapi.android.models.Track;
+import kaaes.spotify.webapi.android.models.UserPrivate;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 public class SpotifyActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "https://aoede.com/callback/";
+    private static final String REDIRECT_URI = "http://com.app.aoede/callback/";
     private static final String CLIENT_ID = "c868a746013949dd8586f71e70cb6ded";
+    String ACCESS_TOKEN;
+    Button btnSmth;
+    TextView txtName;
+    TextView txtEmail;
 
-    Button btnAuthenticate;
+    //SPOTIFY API
+    SpotifyApi spotifyApi = new SpotifyApi();
+    SpotifyService spotifyService = spotifyApi.getService();
+
+    //MEDIAPLAYER
+    private final MediaPlayer player = new MediaPlayer();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify);
-        btnAuthenticate = findViewById(R.id.btnAuthenticate);
-
-        btnAuthenticate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                authenticateSpotify();
-            }
-        });
+        btnSmth = findViewById(R.id.btnSMTH);
+        authenticateSpotify();
+        txtName = findViewById(R.id.txtName);
+        txtEmail = findViewById(R.id.txtEmail);
 
     }
 
+    //PROTECT
     public void authenticateSpotify(){
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID,
@@ -50,16 +67,22 @@ public class SpotifyActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+
         if(requestCode == REQUEST_CODE){
             AuthorizationResponse response =
                     AuthorizationClient.getResponse(resultCode, intent);
 
+
             switch (response.getType()){
                 case TOKEN:
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATED SUCCESSFULLY");
+                    ACCESS_TOKEN = response.getAccessToken();
+                    spotifyApi.setAccessToken(ACCESS_TOKEN);
+                    Log.d("spotAuthent", "ACCESS TOKEN : " + ACCESS_TOKEN);
+                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATED SUCCESSFULLY onActivity");
                     break;
                 case ERROR:
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATE ERROR");
+
+                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATE ERROR onActivity " + response.getError());
                     break;
                 default:
                     Log.d("spotAuthent", "spotify default");
@@ -70,27 +93,48 @@ public class SpotifyActivity extends AppCompatActivity {
         }
     }
 
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
 
-        Uri uri = intent.getData();
-        if (uri != null) {
-            AuthorizationResponse response = AuthorizationResponse.fromUri(uri);
-
-            switch (response.getType()) {
-                case TOKEN:
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATED SUCCESSFULLY");
-                    break;
-
-                case ERROR:
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATE ERROR");
-
-                    break;
-
-                default:
-                    Log.d("spotAuthent", "spotify default");
-
+    public void getAlbum(View view) {
+        spotifyService.getMe(new Callback<UserPrivate>() {
+            @Override
+            public void success(UserPrivate userPrivate, Response response) {
+                String name =  userPrivate.display_name;
+                String email = userPrivate.birthdate;
+                txtName.setText(name);
+                txtEmail.setText(email);
             }
-        }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("spotAuthent", error.toString());
+            }
+        });
+    }
+
+    public void doSmth(View view) {
+        spotifyService.getTrack("6BV77pE4JyUQUtaqnXeKa5", new Callback<Track>() {
+            @Override
+            public void success(Track track, Response response) {
+                String previewUrl = track.preview_url;
+                String url = track.external_urls.get("spotify");
+
+                try {
+                    player.reset();
+                    player.setDataSource(previewUrl);
+                    player.prepare();
+                    player.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("spotAuthent", previewUrl);
+                Log.d("spotAuthent", "" + url);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.d("spotAuthent", error.toString());
+            }
+        });
     }
 }
