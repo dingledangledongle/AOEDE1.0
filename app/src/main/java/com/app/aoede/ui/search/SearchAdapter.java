@@ -1,15 +1,21 @@
 package com.app.aoede.ui.search;
 
+import static com.app.aoede.MediaplayerActivity.playSong;
+
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.aoede.MediaplayerActivity;
 import com.app.aoede.R;
 import com.squareup.picasso.Picasso;
 
@@ -25,6 +31,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
 
     Context context;
     List<Track> songs;
+    MediaPlayer player = MediaplayerActivity.player;
+    public static Track currentSong;
+
 
     @NonNull
     @Override
@@ -41,6 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
     public void onBindViewHolder(@NonNull SearchBarView holder, int position) {
         TextView title = holder.txtTitle;
         TextView artist = holder.txtArtist;
+        //check if list is null
         if(songs == null){
             Log.d("spotAuthent", "songs null");
         }else{
@@ -53,6 +63,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
             artist.setText(songArtist);
         }
 
+        //Play song on click
+        ImageView clickable = holder.clickable;
+        clickable.setOnClickListener(v -> {
+            currentSong = songs.get(position);
+            String url = currentSong.preview_url;
+            //checks if url is null
+            if(url == null){
+                Toast.makeText(clickable.getContext(), "Link Unavailable",Toast.LENGTH_SHORT).show();
+            }else{
+                playSong(url);
+            }
+
+        });
 
     }
 

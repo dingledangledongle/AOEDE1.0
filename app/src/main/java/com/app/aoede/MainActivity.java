@@ -3,17 +3,21 @@ package com.app.aoede;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.app.aoede.ui.home.HomeFragment;
 import com.app.aoede.ui.library.LibraryFragment;
+import com.app.aoede.ui.search.SearchAdapter;
 import com.app.aoede.ui.search.SearchFragment;
 import com.app.aoede.ui.settings.SettingsFragment;
 import com.app.aoede.ui.settings.SettingsProfile;
@@ -38,17 +42,35 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.app.aoede.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+import kaaes.spotify.webapi.android.models.Track;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+
+    //UI ELEMENTS
     BlurView blurView;
+    ImageView playerArt;
+    TextView playerTitle;
+    ImageButton playerBtn;
+    static Track currentSong = SearchAdapter.currentSong;
+
+            //GOOGLE
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
+
+    //SPOTIFY
     public static AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
+    MediaPlayer player = MediaplayerActivity.player;
+    SearchAdapter searchAdapter = getSearchAdapter();
+
+    public SearchAdapter getSearchAdapter() {
+        return searchAdapter;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +101,16 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ACCOUNT HANDLER", googleAccount + "");
         }
 
+        //Spotify Authentication
        authenticateSpotify.authenticate(this);
+
+        //UI ELEMENTS
+        playerArt = findViewById(R.id.albumArtMediaplayer);
+        playerTitle = findViewById(R.id.txtTitleMediaplayer);
+        playerBtn = findViewById(R.id.btnPlayMediaplayer);
+
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -89,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //METHODS
+
     private void blurBackground() {
         float radius = 21f;
 

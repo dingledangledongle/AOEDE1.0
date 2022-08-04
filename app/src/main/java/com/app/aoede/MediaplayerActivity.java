@@ -3,10 +3,13 @@ package com.app.aoede;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+
+import java.io.IOException;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -14,6 +17,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 public class MediaplayerActivity extends AppCompatActivity {
     BlurView blurView;
     SeekBar seekBar;
+    public static MediaPlayer player = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +53,16 @@ public class MediaplayerActivity extends AppCompatActivity {
     //return to previous activity
     public void returnToPrevious(View view) {
         finish();
+    }
+
+    public static void playSong(String url){
+        try{
+            player.reset();
+            player.setDataSource(url);
+            player.prepare();
+            player.start();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }

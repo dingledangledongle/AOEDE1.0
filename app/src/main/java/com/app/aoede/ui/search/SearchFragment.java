@@ -28,7 +28,7 @@ import retrofit.client.Response;
 public class SearchFragment extends Fragment {
     SearchView searchView;
     private RecyclerView recyclerView;
-    private SearchAdapter searchAdapter;
+    public SearchAdapter searchAdapter;
     private SearchAdapter newSearch;
     static String songName;
     static String songId;
@@ -74,6 +74,15 @@ public class SearchFragment extends Fragment {
                 newSearch = new SearchAdapter(searchResults);
                 recyclerView.swapAdapter(newSearch,true);
 
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchResults.clear();
+                newSearch = new SearchAdapter(searchResults);
+                recyclerView.swapAdapter(newSearch,true);
                 return false;
             }
         });

@@ -6,6 +6,17 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/clickable"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:onClick="playSelected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rectangle" />
+
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imgSearchAlbum"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -13,6 +24,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded_5dp"
         app:srcCompat="@drawable/ic_baseline_music_note_24" />
 
     <TextView
@@ -33,4 +45,5 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/txtSearchTitle"
         app:layout_constraintTop_toBottomOf="@+id/txtSearchTitle" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

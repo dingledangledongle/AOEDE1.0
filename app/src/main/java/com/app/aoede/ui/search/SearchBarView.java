@@ -11,6 +11,7 @@ import com.app.aoede.R;
 
 public class SearchBarView extends RecyclerView.ViewHolder {
     public ImageView imgView;
+    public ImageView clickable;
     public TextView txtTitle;
     public TextView txtArtist;
 
@@ -20,5 +21,6 @@ public class SearchBarView extends RecyclerView.ViewHolder {
         imgView = itemView.findViewById(R.id.imgSearchAlbum);
         txtTitle = itemView.findViewById(R.id.txtSearchTitle);
         txtArtist = itemView.findViewById(R.id.txtSearchArtist);
+        clickable = itemView.findViewById(R.id.clickable);
     }
 }
