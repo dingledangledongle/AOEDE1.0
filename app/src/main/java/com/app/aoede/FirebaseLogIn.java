@@ -38,7 +38,6 @@ public class FirebaseLogIn extends AppCompatActivity {
         btnTest = findViewById(R.id.btnTest);
         btnGoogle = findViewById(R.id.btnGoogle);
 
-
         //GOOGLE SIGN IN
         googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

@@ -11,10 +11,6 @@ import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.spotify.sdk.android.auth.AuthorizationClient;
-import com.spotify.sdk.android.auth.AuthorizationRequest;
-import com.spotify.sdk.android.auth.AuthorizationResponse;
-
 import java.io.IOException;
 
 import kaaes.spotify.webapi.android.SpotifyApi;
@@ -27,20 +23,14 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class SpotifyActivity extends AppCompatActivity {
-    private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "com.app.aoede://callback";
-    private static final String CLIENT_ID = "c868a746013949dd8586f71e70cb6ded";
-    String ACCESS_TOKEN;
+    AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
+    SpotifyService spotifyService = authenticateSpotify.spotifyService;
     Button btnSmth;
     TextView txtName;
     TextView txtEmail;
     SearchView textInput;
     static String output;
     static String songId;
-
-    //SPOTIFY API
-    SpotifyApi spotifyApi = new SpotifyApi();
-    SpotifyService spotifyService = spotifyApi.getService();
 
     //MEDIAPLAYER
     private final MediaPlayer player = new MediaPlayer();
@@ -50,24 +40,14 @@ public class SpotifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spotify);
         btnSmth = findViewById(R.id.btnSMTH);
-        authenticateSpotify();
+
+        authenticateSpotify.authenticate(this);
+
         txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
         textInput = findViewById(R.id.textInput);
 
 
-//        textInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                searchSongs(s);
-//                return false;
-//            }
-//        });
     }
 
     @Override
@@ -105,48 +85,14 @@ public class SpotifyActivity extends AppCompatActivity {
 
     }
 
-
-
-    //PROTECT
-    public void authenticateSpotify(){
-        AuthorizationRequest.Builder builder =
-                new AuthorizationRequest.Builder(CLIENT_ID,
-                        AuthorizationResponse.Type.TOKEN,
-                        REDIRECT_URI);
-
-        builder.setScopes(new String[]{"streaming"});
-        AuthorizationRequest request = builder.build();
-
-        AuthorizationClient.openLoginActivity(this,REQUEST_CODE,request);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
 
-        if(requestCode == REQUEST_CODE){
-            AuthorizationResponse response =
-                    AuthorizationClient.getResponse(resultCode, intent);
-
-
-            switch (response.getType()){
-                case TOKEN:
-                    ACCESS_TOKEN = response.getAccessToken();
-                    spotifyApi.setAccessToken(ACCESS_TOKEN);
-                    Log.d("spotAuthent", "ACCESS TOKEN : " + ACCESS_TOKEN);
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATED SUCCESSFULLY onActivity");
-                    break;
-                case ERROR:
-
-                    Log.d("spotAuthent", "SPOTIFY AUTHENTICATE ERROR onActivity " + response.getError());
-                    break;
-                default:
-                    Log.d("spotAuthent", "spotify default");
-
-            }
+            authenticateSpotify.getAccessToken(requestCode,resultCode,intent);
 
         }
-    }
+
 
 
     public void getAlbum(View view) {

@@ -25,7 +25,10 @@
         android:outlineAmbientShadowColor="#101010"
         android:outlineSpotShadowColor="#000000"
         app:blurOverlayColor="#99000000"
-        app:layout_constraintBottom_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

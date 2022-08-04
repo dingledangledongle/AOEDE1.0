@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     BlurView blurView;
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
+    public static AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +79,18 @@ public class MainActivity extends AppCompatActivity {
             Log.d("ACCOUNT HANDLER", googleAccount + "");
         }
 
+       authenticateSpotify.authenticate(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        authenticateSpotify.getAccessToken(requestCode,resultCode,data);
     }
 
     //METHODS
     private void blurBackground() {
-        float radius = 18f;
+        float radius = 21f;
 
         View decorView = getWindow().getDecorView();
         ViewGroup rootView = decorView.findViewById(android.R.id.content);
