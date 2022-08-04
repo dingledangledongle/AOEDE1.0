@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.spotify.sdk.android.auth.AuthorizationClient;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Track;
+import kaaes.spotify.webapi.android.models.TracksPager;
 import kaaes.spotify.webapi.android.models.UserPrivate;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,12 +28,15 @@ import retrofit.client.Response;
 
 public class SpotifyActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 1337;
-    private static final String REDIRECT_URI = "http://com.app.aoede/callback/";
+    private static final String REDIRECT_URI = "com.app.aoede://callback";
     private static final String CLIENT_ID = "c868a746013949dd8586f71e70cb6ded";
     String ACCESS_TOKEN;
     Button btnSmth;
     TextView txtName;
     TextView txtEmail;
+    SearchView textInput;
+    static String output;
+    static String songId;
 
     //SPOTIFY API
     SpotifyApi spotifyApi = new SpotifyApi();
@@ -48,8 +53,59 @@ public class SpotifyActivity extends AppCompatActivity {
         authenticateSpotify();
         txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
+        textInput = findViewById(R.id.textInput);
+
+
+//        textInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                searchSongs(s);
+//                return false;
+//            }
+//        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        textInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchSongs(s);
+                return false;
+            }
+        });
+    }
+
+    public void searchSongs(String songName){
+        spotifyService.searchTracks(songName, new Callback<TracksPager>() {
+            @Override
+            public void success(TracksPager tracksPager, Response response) {
+                output = tracksPager.tracks.items.get(0).name;
+                songId = tracksPager.tracks.items.get(0).id;
+                Log.d("spotAuthent",output );
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+
+        });
 
     }
+
+
 
     //PROTECT
     public void authenticateSpotify(){
@@ -61,7 +117,7 @@ public class SpotifyActivity extends AppCompatActivity {
         builder.setScopes(new String[]{"streaming"});
         AuthorizationRequest request = builder.build();
 
-        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+        AuthorizationClient.openLoginActivity(this,REQUEST_CODE,request);
     }
 
     @Override
@@ -87,7 +143,6 @@ public class SpotifyActivity extends AppCompatActivity {
                 default:
                     Log.d("spotAuthent", "spotify default");
 
-
             }
 
         }
@@ -112,20 +167,17 @@ public class SpotifyActivity extends AppCompatActivity {
     }
 
     public void doSmth(View view) {
-        spotifyService.getTrack("6BV77pE4JyUQUtaqnXeKa5", new Callback<Track>() {
+        getSpotifyTrack(songId);
+    }
+
+    public void getSpotifyTrack(String songId){
+        spotifyService.getTrack(songId, new Callback<Track>() {
             @Override
             public void success(Track track, Response response) {
                 String previewUrl = track.preview_url;
                 String url = track.external_urls.get("spotify");
 
-                try {
-                    player.reset();
-                    player.setDataSource(previewUrl);
-                    player.prepare();
-                    player.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                playSong(previewUrl);
 
                 Log.d("spotAuthent", previewUrl);
                 Log.d("spotAuthent", "" + url);
@@ -136,5 +188,16 @@ public class SpotifyActivity extends AppCompatActivity {
                 Log.d("spotAuthent", error.toString());
             }
         });
+    }
+
+    public void playSong(String url){
+        try {
+            player.reset();
+            player.setDataSource(url);
+            player.prepare();
+            player.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
