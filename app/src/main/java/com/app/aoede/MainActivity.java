@@ -1,7 +1,5 @@
 package com.app.aoede;
 
-import static com.app.aoede.MediaplayerActivity.playOrPause;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -176,7 +174,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void mediaPlayPause(View view) {
-        playOrPause();
+        if(player.isPlaying()){
+            player.pause();
+            playerBtn.setImageResource(R.drawable.play_arrow);
+        }else{
+            player.start();
+            playerBtn.setImageResource(R.drawable.pause);
+        }
     }
 
 }

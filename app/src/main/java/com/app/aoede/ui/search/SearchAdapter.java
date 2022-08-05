@@ -1,7 +1,9 @@
 package com.app.aoede.ui.search;
 
 import static com.app.aoede.MainActivity.playerBtn;
+import static com.app.aoede.MediaplayerActivity.addToQueue;
 import static com.app.aoede.MediaplayerActivity.playSong;
+import static com.app.aoede.MediaplayerActivity.songQueue;
 
 import android.content.Context;
 import android.util.Log;
@@ -70,8 +72,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
             if(url == null){
                 Toast.makeText(clickable.getContext(), "Link Unavailable",Toast.LENGTH_SHORT).show();
             }else{
-                playSong(url);
-                displaySong();
+                if(songQueue.isEmpty()){
+                    playSong(url);
+                    addToQueue(currentSong);
+                    displaySong();
+                }else if(!songQueue.isEmpty()){
+                    playSong(url);
+                    addToQueue(currentSong);
+                    displaySong();
+                    songQueue.remove(1);
+                }
+
 
             }
 

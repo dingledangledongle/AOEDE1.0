@@ -36,10 +36,11 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/draggable"
-                android:layout_width="40dp"
-                android:layout_height="5dp"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
                 android:onClick="returnToPrevious"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
+                app:contentPadding="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageAlbumArt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +72,7 @@
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="80dp"
                 android:fontFamily="@font/roboto"
                 android:singleLine="true"
                 android:text="Song Title"
