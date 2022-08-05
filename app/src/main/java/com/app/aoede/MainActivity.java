@@ -1,5 +1,7 @@
 package com.app.aoede;
 
+import static com.app.aoede.MediaplayerActivity.playOrPause;
+
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,33 +10,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.app.aoede.ui.home.HomeFragment;
-import com.app.aoede.ui.library.LibraryFragment;
+
 import com.app.aoede.ui.search.SearchAdapter;
-import com.app.aoede.ui.search.SearchFragment;
-import com.app.aoede.ui.settings.SettingsFragment;
-import com.app.aoede.ui.settings.SettingsProfile;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -54,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
     //UI ELEMENTS
     BlurView blurView;
-    ImageView playerArt;
-    TextView playerTitle;
-    ImageButton playerBtn;
+    public static ImageView playerArt;
+    public static TextView playerTitle;
+    public static ImageButton playerBtn;
+
     static Track currentSong = SearchAdapter.currentSong;
 
-            //GOOGLE
+    //GOOGLE
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
 
@@ -108,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
         playerArt = findViewById(R.id.albumArtMediaplayer);
         playerTitle = findViewById(R.id.txtTitleMediaplayer);
         playerBtn = findViewById(R.id.btnPlayMediaplayer);
+
+        if(currentSong != null){
+            String url = currentSong.album.images.get(0).url;
+            Picasso.get().load(url).into(playerArt);
+        }
+
+        if (player.isPlaying()){
+            playerBtn.setImageResource(R.drawable.pause);
+        }else{
+            playerBtn.setImageResource(R.drawable.play_arrow);
+        }
+
 
     }
 
@@ -163,12 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
     //start MediaplayerActivity
     public void goToMediaplayer(View view) {
-        startActivity(new Intent(MainActivity.this,MediaplayerActivity.class));
+        startActivity(new Intent(MainActivity.this,MediaplayerActivity.class),
+                ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
     }
 
-//    @Override
-//    public void onBackPressed() {
-//
-//    }
+    public void mediaPlayPause(View view) {
+        playOrPause();
+    }
 
 }

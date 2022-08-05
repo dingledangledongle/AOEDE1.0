@@ -59,18 +59,21 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:scaleType="centerInside"
                     app:layout_constraintStart_toStartOf="@+id/mediaplayerBar"
                     app:layout_constraintTop_toTopOf="@+id/mediaplayerBar"
                     app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded_5dp"
-                    app:srcCompat="@drawable/blue" />
+                    app:srcCompat="@drawable/ic_baseline_music_note_24" />
 
                 <TextView
                     android:id="@+id/txtTitleMediaplayer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="18dp"
                     android:fontFamily="@font/roboto"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
                     android:text="Not Playing"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/albumArtMediaplayer"
@@ -78,15 +81,16 @@
 
                 <ImageButton
                     android:id="@+id/btnPlayMediaplayer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="26dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
                     android:background="#00FFFFFF"
+                    android:onClick="mediaPlayPause"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="@+id/mediaplayerBar"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/ic_media_play"
+                    app:srcCompat="@drawable/play_arrow"
                     app:tint="@color/darkGrey" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

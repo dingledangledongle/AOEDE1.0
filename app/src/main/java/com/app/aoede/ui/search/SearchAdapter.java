@@ -1,9 +1,9 @@
 package com.app.aoede.ui.search;
 
+import static com.app.aoede.MainActivity.playerBtn;
 import static com.app.aoede.MediaplayerActivity.playSong;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.aoede.MediaplayerActivity;
+import com.app.aoede.MainActivity;
 import com.app.aoede.R;
 import com.squareup.picasso.Picasso;
 
@@ -31,9 +31,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
 
     Context context;
     List<Track> songs;
-    MediaPlayer player = MediaplayerActivity.player;
     public static Track currentSong;
-
 
     @NonNull
     @Override
@@ -73,6 +71,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
                 Toast.makeText(clickable.getContext(), "Link Unavailable",Toast.LENGTH_SHORT).show();
             }else{
                 playSong(url);
+                displaySong();
+
             }
 
         });
@@ -87,5 +87,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
             return songs.size();
         }
     }
+
+    public void displaySong(){
+        String img = currentSong.album.images.get(0).url;
+        String name = currentSong.name;
+        MainActivity.playerTitle.setText(name);
+        Picasso.get().load(img).into(MainActivity.playerArt);
+        playerBtn.setImageResource(R.drawable.pause);
+
+    }
+
 }
 
