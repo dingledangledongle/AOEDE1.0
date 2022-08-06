@@ -6,11 +6,6 @@
         android:icon="@drawable/ic_dashboard_settings"
         android:title="@string/title_settings"
         android:menuCategory="secondary"/>
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home"
-        android:menuCategory="secondary"/>
 
     <item
         android:id="@+id/navigation_library"

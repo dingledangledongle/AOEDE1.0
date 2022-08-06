@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/libraryAlbumArt"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#52919191"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded_8dp"
+        app:srcCompat="@drawable/rectangle" />
+
+    <TextView
+        android:id="@+id/libraryAlbumTitle"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="Title"
+        app:layout_constraintStart_toStartOf="@+id/libraryAlbumArt"
+        app:layout_constraintTop_toBottomOf="@+id/libraryAlbumArt" />
+
+    <TextView
+        android:id="@+id/libraryAlbumArtist"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="Artist"
+        app:layout_constraintStart_toStartOf="@+id/libraryAlbumTitle"
+        app:layout_constraintTop_toBottomOf="@+id/libraryAlbumTitle" />
+</androidx.constraintlayout.widget.ConstraintLayout>

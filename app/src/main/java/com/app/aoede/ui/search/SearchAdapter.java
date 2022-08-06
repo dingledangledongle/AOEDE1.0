@@ -6,6 +6,7 @@ import static com.app.aoede.MediaplayerActivity.playSong;
 import static com.app.aoede.MediaplayerActivity.songQueue;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.aoede.MainActivity;
 import com.app.aoede.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kaaes.spotify.webapi.android.models.Track;
@@ -34,6 +38,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
     Context context;
     List<Track> songs;
     public static Track currentSong;
+    SharedPreferences listShared;
+    ArrayList<Track> libraryList = new ArrayList<>();
 
     @NonNull
     @Override
@@ -43,6 +49,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
         View songView = inflater.inflate(R.layout.item_search,parent,false);
         SearchBarView viewHolder = new SearchBarView(songView);
 
+        listShared = context.getSharedPreferences("libraryList",Context.MODE_PRIVATE);
+        String songsInLibrary = listShared.getString("library", "");
+        if(!songsInLibrary.equals("")){
+            TypeToken<ArrayList<Track>> token = new TypeToken<ArrayList<Track>>(){};
+            Gson gson = new Gson();
+            libraryList = gson.fromJson(songsInLibrary, token.getType());
+        }
+
         return viewHolder;
     }
 
@@ -50,6 +64,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
     public void onBindViewHolder(@NonNull SearchBarView holder, int position) {
         TextView title = holder.txtTitle;
         TextView artist = holder.txtArtist;
+
+
         //check if list is null
         if(songs == null){
             Log.d("spotAuthent", "songs null");
@@ -88,7 +104,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchBarView> {
 
         });
 
-    }
+        ImageView addToLibrary = holder.addToLibrary;
+        addToLibrary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("spotAuthent", String.valueOf(libraryList));
+                listShared = context.getSharedPreferences("libraryList",Context.MODE_PRIVATE);
+                Track selectedSong = songs.get(position);
+                libraryList.add(selectedSong);
+                addToLibrary.setImageResource(R.drawable.ic_baseline_check_24);
+                Gson gson = new Gson();
+                String json = gson.toJson(libraryList);
+                SharedPreferences.Editor editor = listShared.edit();
+                editor.putString("library",json);
+                editor.apply();
+
+                    Log.d("spotAuthent", selectedSong.name);
+                }
+            });
+        }
+
 
     @Override
     public int getItemCount() {

@@ -2,6 +2,7 @@ package com.app.aoede;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 
 import com.app.aoede.ui.search.SearchAdapter;
@@ -35,7 +35,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.app.aoede.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.squareup.picasso.Picasso;
+
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -60,11 +62,7 @@ public class MainActivity extends AppCompatActivity {
     //SPOTIFY
     public static AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
     MediaPlayer player = MediaplayerActivity.player;
-    SearchAdapter searchAdapter = getSearchAdapter();
-
-    public SearchAdapter getSearchAdapter() {
-        return searchAdapter;
-    }
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         //setting up bottom navigation bar and top app bar
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_search,R.id.navigation_library,R.id.navigation_home,R.id.navigation_settings)
+                R.id.navigation_search,R.id.navigation_library,R.id.navigation_settings)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -115,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
     }
 
 
@@ -148,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
             googleSignOut();
             Log.d("ACCOUNT HANDLER", "GOOGLE SIGN OUT");
         }else{
+            SharedPreferences sp = getSharedPreferences("checkbox",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("remember","false").apply();
+
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(MainActivity.this,"SUCCESSFULLY LOGGED OUT",Toast.LENGTH_SHORT).show();
             Log.d("ACCOUNT HANDLER", "FIREBASE SIGN OUT");
@@ -182,5 +185,7 @@ public class MainActivity extends AppCompatActivity {
             playerBtn.setImageResource(R.drawable.pause);
         }
     }
+
+
 
 }

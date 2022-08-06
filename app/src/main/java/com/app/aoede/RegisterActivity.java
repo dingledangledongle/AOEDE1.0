@@ -1,6 +1,7 @@
 package com.app.aoede;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,9 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
     private EditText txtEmail;
     private EditText txtPassword;
+    private EditText txtConfirmPassword;
     private Button btnRegister;
 
     private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         txtEmail = findViewById(R.id.txtRegisterEmail);
         txtPassword = findViewById(R.id.txtRegisterPassword);
+        txtConfirmPassword = findViewById(R.id.txtRegisterConfirmPassword);
         btnRegister = findViewById(R.id.btnRegisterComplete);
+
+        ActionBar topBar = getSupportActionBar();
+        topBar.setTitle("Create Account");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -40,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailInput = txtEmail.getText().toString();
                 String passwordInput = txtPassword.getText().toString();
+                String confirmInput = txtConfirmPassword.getText().toString();
 
                 //Checking for user errors
                 if (TextUtils.isEmpty(emailInput)|| TextUtils.isEmpty(passwordInput)){
@@ -48,9 +56,10 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if (passwordInput.length() < 6){
                     Toast.makeText(RegisterActivity.this, "PASSWORD TOO SHORT", Toast.LENGTH_SHORT).show();
 
-                }else {
+                }else if(!passwordInput.equals(confirmInput)){
+                    Toast.makeText(RegisterActivity.this, "PASSWORD DIDN'T MATCH", Toast.LENGTH_SHORT).show();
+                }else{
                     registerUser(emailInput, passwordInput);
-
                 }
             }
         });

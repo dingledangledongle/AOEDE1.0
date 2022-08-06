@@ -20,17 +20,6 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container,false);
         Button btnProfile = view.findViewById(R.id.btnProfile);
 
-        btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment settingsProfile = new SettingsProfile();
-                FragmentTransaction manager = requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction();
-                manager.replace(R.id.container,settingsProfile).setReorderingAllowed(true).addToBackStack(null).commit();
-            }
-        });
 
         return view;
     }

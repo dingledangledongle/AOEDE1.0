@@ -6,12 +6,6 @@
     app:startDestination="@+id/navigation_library">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.app.aoede.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
         android:id="@+id/navigation_search"
         android:name="com.app.aoede.ui.search.SearchFragment"
         android:label="@string/title_search"
@@ -21,16 +15,10 @@
         android:id="@+id/navigation_settings"
         android:name="com.app.aoede.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" >
-    </fragment>
+        tools:layout="@layout/fragment_settings" />
 
     <fragment android:id="@+id/navigation_library"
         android:name="com.app.aoede.ui.library.LibraryFragment"
         android:label="@string/title_library"
         tools:layout="@layout/fragment_library"/>
-    <fragment
-        android:id="@+id/settingsProfile"
-        android:name="com.app.aoede.ui.settings.SettingsProfile"
-        android:label="fragment_settings_profile"
-        tools:layout="@layout/fragment_settings_profile" />
 </navigation>

@@ -1,13 +1,11 @@
 package com.app.aoede.ui.search;
 
-import static com.app.aoede.ui.search.SearchAdapter.currentSong;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
@@ -17,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.aoede.AuthenticateSpotify;
 import com.app.aoede.MainActivity;
 import com.app.aoede.R;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import kaaes.spotify.webapi.android.SpotifyService;
@@ -36,7 +32,7 @@ public class SearchFragment extends Fragment {
     private SearchAdapter newSearch;
     static String songName;
     static String songId;
-    static List<Track> searchResults;
+    List<Track> searchResults;
     AuthenticateSpotify spotifyAuth = MainActivity.authenticateSpotify;
     SpotifyService spotify = spotifyAuth.spotifyService;
 

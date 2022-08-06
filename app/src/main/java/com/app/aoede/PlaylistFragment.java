@@ -1,4 +1,4 @@
-package com.app.aoede.ui.settings;
+package com.app.aoede;
 
 import android.os.Bundle;
 
@@ -8,23 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.aoede.R;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link PlaylistFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class PlaylistFragment extends Fragment {
 
-public class SettingsProfile extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        }
-
-
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_settings_profile, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_playlist, container, false);
     }
-
-
 }

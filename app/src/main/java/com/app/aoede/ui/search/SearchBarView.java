@@ -14,6 +14,7 @@ public class SearchBarView extends RecyclerView.ViewHolder {
     public ImageView clickable;
     public TextView txtTitle;
     public TextView txtArtist;
+    public ImageView addToLibrary;
 
 
     public SearchBarView(@NonNull View itemView) {
@@ -22,5 +23,6 @@ public class SearchBarView extends RecyclerView.ViewHolder {
         txtTitle = itemView.findViewById(R.id.txtSearchTitle);
         txtArtist = itemView.findViewById(R.id.txtSearchArtist);
         clickable = itemView.findViewById(R.id.clickable);
+        addToLibrary = itemView.findViewById(R.id.btnAddLibrary);
     }
 }
