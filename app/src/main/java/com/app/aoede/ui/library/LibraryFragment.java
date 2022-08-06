@@ -1,6 +1,7 @@
 package com.app.aoede.ui.library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.app.aoede.PlaylistFragment;
 import com.app.aoede.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.AlbumSimple;
 import kaaes.spotify.webapi.android.models.Track;
 
@@ -70,8 +69,7 @@ public class LibraryFragment extends Fragment {
         goPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlaylistFragment playlistFragment = new PlaylistFragment();
-
+                startActivity(new Intent(view.getContext(), PlaylistActivity.class));
             }
         });
 

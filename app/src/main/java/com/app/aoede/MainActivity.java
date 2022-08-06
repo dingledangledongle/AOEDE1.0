@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     //SPOTIFY
     public static AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
     MediaPlayer player = MediaplayerActivity.player;
-    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
