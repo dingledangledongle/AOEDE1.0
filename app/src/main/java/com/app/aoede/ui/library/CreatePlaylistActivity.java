@@ -44,10 +44,6 @@ public class CreatePlaylistActivity extends AppCompatActivity {
             Gson gson = new Gson();
             playlists = gson.fromJson(playlistInLibrary,token.getType());
         }
-
-
-
-
     }
 
     public void savePlaylist(View view) {

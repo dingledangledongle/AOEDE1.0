@@ -93,9 +93,7 @@ public class MediaplayerActivity extends AppCompatActivity {
             seekBar.setMax(player.getDuration());
             handler.removeCallbacks(p_bar);
             handler.postDelayed(p_bar,10);
-
         }
-
         //change play or pause image accordingly
         if (player.isPlaying()){
             playBtn.setImageResource(R.drawable.pause);
@@ -228,7 +226,6 @@ public class MediaplayerActivity extends AppCompatActivity {
             Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
             playSong(url);
             displaySongInfo();
-
         }
 
     }

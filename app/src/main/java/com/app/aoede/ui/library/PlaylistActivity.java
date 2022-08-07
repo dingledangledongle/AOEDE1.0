@@ -63,8 +63,26 @@ public class PlaylistActivity extends AppCompatActivity {
                 Intent intent = new Intent(PlaylistActivity.this,CreatePlaylistActivity.class);
                 intent.putExtra("song", songList);
                 startActivity(intent);
+
             }
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playlistSaved = getSharedPreferences("libraryList", MODE_PRIVATE);
+        String playlistLibrary = playlistSaved.getString("playlist","");
+        if(!playlistLibrary.equals("")){
+            TypeToken<ArrayList<ArrayList<Track>>> token =
+                    new TypeToken<ArrayList<ArrayList<Track>>>(){};
+            Gson gson = new Gson();
+            playlists = gson.fromJson(playlistLibrary,token.getType());
+        }
+        playlistAdapter = new PlaylistAdapter(playlists);
+        playlistRecycler.setAdapter(playlistAdapter);
+        playlistRecycler.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 }
