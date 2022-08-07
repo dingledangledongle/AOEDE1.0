@@ -23,27 +23,23 @@
 
                 <Button
                     android:id="@+id/btnSong"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="SONGS" />
-
-                <Button
-                    android:id="@+id/btnAlbums"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="ALBUMS" />
-
-                <Button
-                    android:id="@+id/btnArtist"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="ARTIST" />
+                    android:background="@drawable/rectangle"
+                    android:paddingLeft="24dp"
+                    android:text="SONGS"
+                    android:textAlignment="textStart" />
 
                 <Button
                     android:id="@+id/btnPlaylist"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:text="PLAYLIST" />
+                    android:background="@drawable/rectangle"
+                    android:paddingLeft="24dp"
+                    android:text="PLAYLIST"
+                    android:textAlignment="textStart" />
 
                 <TextView
                     android:id="@+id/textView2"

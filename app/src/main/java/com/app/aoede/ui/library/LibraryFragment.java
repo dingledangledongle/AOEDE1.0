@@ -35,6 +35,7 @@ public class LibraryFragment extends Fragment {
     public static HashMap<String, String> albumArtistMap = new HashMap<>();
     public static HashMap<String, AlbumSimple> albumMap = new HashMap<String, AlbumSimple>();
     Button goPlaylist;
+    Button goSong;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,9 +73,18 @@ public class LibraryFragment extends Fragment {
                 startActivity(new Intent(view.getContext(), PlaylistActivity.class));
             }
         });
+        goSong = view.findViewById(R.id.btnSong);
+        goSong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(view.getContext(), SongActivity.class));
+            }
+        });
+
 
         return view;
 
         }
+
 
     }
