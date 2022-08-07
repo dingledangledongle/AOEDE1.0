@@ -20,6 +20,7 @@ public class AuthenticateSpotify {
     public SpotifyApi spotifyApi = new SpotifyApi();
     public SpotifyService spotifyService = spotifyApi.getService();
 
+    //authenticate spotify
     public void authenticate(Activity activity){
         AuthorizationRequest.Builder builder =
                 new AuthorizationRequest.Builder(CLIENT_ID,
@@ -33,6 +34,7 @@ public class AuthenticateSpotify {
 
     }
 
+    //get access token after finishing spotify login activity
     public void getAccessToken(int requestCode, int resultCode, Intent intent){
         if (requestCode == REQUEST_CODE){
             AuthorizationResponse response = AuthorizationClient

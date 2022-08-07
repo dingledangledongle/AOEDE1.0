@@ -38,6 +38,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.app.aoede.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInOptions googleSignInOptions;
     GoogleSignInClient googleSignInClient;
 
+    public static FirebaseUser user;
     //SPOTIFY
     public static AuthenticateSpotify authenticateSpotify = new AuthenticateSpotify();
     MediaPlayer player = MediaplayerActivity.player;
@@ -91,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         if(googleAccount != null){
             Log.d("ACCOUNT HANDLER", googleAccount + "");
         }
+        //getting firebase user
+        if(googleAccount == null){
+            Bundle userdata = getIntent().getExtras();
+            user = userdata.getParcelable("user");
+        }
 
         //Spotify Authentication
        authenticateSpotify.authenticate(this);
@@ -110,12 +117,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             playerBtn.setImageResource(R.drawable.play_arrow);
         }
-
-
-
     }
 
-
+    //detects when spotify login activity is finished
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -175,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle());
     }
 
+    //play and pause music
     public void mediaPlayPause(View view) {
         if(player.isPlaying()){
             player.pause();

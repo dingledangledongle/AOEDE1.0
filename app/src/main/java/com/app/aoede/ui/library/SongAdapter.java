@@ -56,6 +56,8 @@ public class SongAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
         Picasso.get().load(imgUrl).into(holder.songArt);
 
         ImageView clickable = holder.clickable;
+
+        //play song on click
         clickable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

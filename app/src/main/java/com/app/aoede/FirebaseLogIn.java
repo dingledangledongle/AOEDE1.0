@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseLogIn extends AppCompatActivity {
     private Button btnRegister;
@@ -41,14 +42,17 @@ public class FirebaseLogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase_log_in);
 
+        //finding all ui elements
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogIn);
         btnGoogle = findViewById(R.id.btnGoogle);
         txtLoginEmail = findViewById(R.id.txtLoginEmail);
         txtLoginPassword = findViewById(R.id.txtLoginPassword);
 
+        //getting checkbox preference
         SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
         String checkboxState = preferences.getString("remember","");
+        //getting login info from preferences
         SharedPreferences loginPreferences = getSharedPreferences("login",MODE_PRIVATE);
         SharedPreferences.Editor editor = loginPreferences.edit();
         SharedPreferences.Editor checkboxEditor = preferences.edit();
@@ -84,6 +88,7 @@ public class FirebaseLogIn extends AppCompatActivity {
             }
         });
 
+        //firebase login
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +126,8 @@ public class FirebaseLogIn extends AppCompatActivity {
 
     }
 
+
+    //signing in with google
     private void SignIn() {
         Intent intent = googleSignInClient.getSignInIntent();
         startActivityForResult(intent, 100);
@@ -130,6 +137,7 @@ public class FirebaseLogIn extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //login after finishing google login
         if(requestCode==100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -142,20 +150,27 @@ public class FirebaseLogIn extends AppCompatActivity {
         }
     }
 
+    //go to mainActivity
     private void HomeActivity() {
         finish();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 
+    //login using firebase
     private void loginUser(String emailInput, String passwordInput) {
         mAuth.signInWithEmailAndPassword(emailInput,passwordInput).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(FirebaseLogIn.this,"LOGGED IN SUCCESSFULLY",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(FirebaseLogIn.this,MainActivity.class),
+                Intent intent = new Intent(FirebaseLogIn.this, MainActivity.class);
+                FirebaseUser user = mAuth.getCurrentUser();
+                intent.putExtra("user",user);
+                startActivity(intent,
                         ActivityOptions.makeSceneTransitionAnimation(FirebaseLogIn.this)
                                 .toBundle());
+
+
             }
         });
 

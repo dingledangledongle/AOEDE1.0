@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,10 +41,11 @@ public class MediaplayerActivity extends AppCompatActivity {
     static TextView songTitle;
     static TextView songArtist;
     Track currentSong = SearchAdapter.currentSong;
-
+    static int currentIndex;
     public static MediaPlayer player = new MediaPlayer();
 
     public static ArrayList<Track> songQueue = new ArrayList<>();
+    ArrayList<Track> originalQueue = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,21 @@ public class MediaplayerActivity extends AppCompatActivity {
         blurView = findViewById(R.id.blurViewMediaplayer);
         blurBackground();
 
+        //finding all ui elements
         seekBar = findViewById(R.id.progressBar);
         background = findViewById(R.id.imageBackground);
         albumArt = findViewById(R.id.imageAlbumArt);
         songTitle = findViewById(R.id.txtSongTitle);
         songArtist = findViewById(R.id.txtArtist);
         playBtn = findViewById(R.id.btnPlay);
+
+        currentIndex = songQueue.indexOf(currentSong);
+
+        //seekbar dragging
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 handler.removeCallbacks(p_bar);
@@ -80,6 +85,8 @@ public class MediaplayerActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //if songs is playing, displayInfo and seekbar
         if (currentSong != null){
             displaySongInfo();
 
@@ -89,15 +96,13 @@ public class MediaplayerActivity extends AppCompatActivity {
 
         }
 
+        //change play or pause image accordingly
         if (player.isPlaying()){
             playBtn.setImageResource(R.drawable.pause);
         }else{
             playBtn.setImageResource(R.drawable.play_arrow);
         }
-
-
     }
-
 
     //BLUR BACKGROUND
     private void blurBackground() {
@@ -131,7 +136,7 @@ public class MediaplayerActivity extends AppCompatActivity {
         }
     }
 
-
+    //goes to next song when music ends
     public static void stopWhenMusicEnds(){
         player.setOnCompletionListener(mp -> {
             if(songQueue.size() == 1){
@@ -140,9 +145,10 @@ public class MediaplayerActivity extends AppCompatActivity {
                 seekBar.setProgress(0);
                 songQueue.remove(0);
             }else if (songQueue.size() > 1){
-                songQueue.remove(0);
-                String url = songQueue.get(0).preview_url;
-                SearchAdapter.currentSong = songQueue.get(0);
+                currentIndex += 1;
+                String url = songQueue.get(currentIndex).preview_url;
+                SearchAdapter.currentSong = songQueue.get(currentIndex);
+                Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
                 playSong(url);
                 displaySongInfo();
             }else{
@@ -159,7 +165,7 @@ public class MediaplayerActivity extends AppCompatActivity {
         songQueue.add(0,song);
     }
 
-
+    //display song info both here and mediaPlayer in mainActivity
     public static void displaySongInfo(){
         String title = SearchAdapter.currentSong.name;
         String imgUrl = SearchAdapter.currentSong.album.images.get(0).url;
@@ -175,7 +181,7 @@ public class MediaplayerActivity extends AppCompatActivity {
     }
 
 
-
+    //play or pause
     public void playPause(View view) {
         if(player.isPlaying()){
             player.pause();
@@ -201,9 +207,47 @@ public class MediaplayerActivity extends AppCompatActivity {
         }
     };
 
+    //removes the callbacks
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         handler.removeCallbacks(p_bar);
     }
+
+    public void previousSong(View view) {
+        if(currentIndex == 0){
+            String url = songQueue.get(currentIndex).preview_url;
+            SearchAdapter.currentSong = songQueue.get(currentIndex);
+            Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
+            playSong(url);
+            displaySongInfo();
+        }else{
+            currentIndex -= 1;
+            String url = songQueue.get(currentIndex).preview_url;
+            SearchAdapter.currentSong = songQueue.get(currentIndex);
+            Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
+            playSong(url);
+            displaySongInfo();
+
+        }
+
+    }
+
+    public void nextSong(View view) {
+        if(currentIndex == (songQueue.size() - 1)){
+            String url = songQueue.get(currentIndex).preview_url;
+            SearchAdapter.currentSong = songQueue.get(currentIndex);
+            Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
+            playSong(url);
+            displaySongInfo();
+        }else{
+            currentIndex += 1;
+            String url = songQueue.get(currentIndex).preview_url;
+            SearchAdapter.currentSong = songQueue.get(currentIndex);
+            Log.d("spotAuthent", currentIndex + " " + songQueue.get(currentIndex).name);
+            playSong(url);
+            displaySongInfo();
+        }
+    }
+
 }
