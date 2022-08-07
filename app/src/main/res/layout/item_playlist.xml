@@ -12,17 +12,19 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:background="#9A9A9A"
+        android:tint="#ECECEC"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ImageStyle_Corners_Rounded_8dp"
-        app:srcCompat="@drawable/rectangle" />
+        app:srcCompat="@drawable/ic_baseline_music_note_24" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="203dp"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="28dp"
+        android:tint="@color/mainGrey"
         app:layout_constraintStart_toEndOf="@+id/playlistArt"
         app:layout_constraintTop_toTopOf="@+id/playlistArt"
         app:srcCompat="@drawable/ic_forward_arrow" />

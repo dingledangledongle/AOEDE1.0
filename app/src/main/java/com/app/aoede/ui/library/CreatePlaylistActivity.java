@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.app.aoede.R;
 import com.google.gson.Gson;
@@ -50,12 +51,17 @@ public class CreatePlaylistActivity extends AppCompatActivity {
     }
 
     public void savePlaylist(View view) {
-        playlists.add(cpAdapter.playlistCreated);
-        SharedPreferences.Editor editor = playlistSP.edit();
-        Gson gson = new Gson();
-        String putPlaylist = gson.toJson(playlists);
-        editor.putString("playlist",putPlaylist).apply();
-        finish();
+        if(cpAdapter.playlistCreated.isEmpty()){
+            Toast.makeText(this, "PLAYLIST EMPTY", Toast.LENGTH_SHORT).show();
+        }else{
+            playlists.add(cpAdapter.playlistCreated);
+            SharedPreferences.Editor editor = playlistSP.edit();
+            Gson gson = new Gson();
+            String putPlaylist = gson.toJson(playlists);
+            editor.putString("playlist",putPlaylist).apply();
+            finish();
+        }
+
 
     }
 }

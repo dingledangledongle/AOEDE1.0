@@ -1,5 +1,7 @@
 package com.app.aoede;
 
+import static com.app.aoede.ui.search.SearchAdapter.currentSong;
+
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
     public static ImageView playerArt;
     public static TextView playerTitle;
     public static ImageButton playerBtn;
-
-    static Track currentSong = SearchAdapter.currentSong;
 
     //GOOGLE
     GoogleSignInOptions googleSignInOptions;

@@ -140,6 +140,7 @@ public class MediaplayerActivity extends AppCompatActivity {
             }else if (songQueue.size() > 1){
                 songQueue.remove(0);
                 String url = songQueue.get(0).preview_url;
+                SearchAdapter.currentSong = songQueue.get(0);
                 playSong(url);
                 displaySongInfo();
             }else{
@@ -158,9 +159,9 @@ public class MediaplayerActivity extends AppCompatActivity {
 
 
     public static void displaySongInfo(){
-        String title = songQueue.get(0).name;
-        String imgUrl = songQueue.get(0).album.images.get(0).url;
-        String artist = songQueue.get(0).artists.get(0).name;
+        String title = SearchAdapter.currentSong.name;
+        String imgUrl = SearchAdapter.currentSong.album.images.get(0).url;
+        String artist = SearchAdapter.currentSong.artists.get(0).name;
 
         songTitle.setText(title);
         songArtist.setText(artist);

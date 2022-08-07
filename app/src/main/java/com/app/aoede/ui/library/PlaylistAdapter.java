@@ -1,9 +1,11 @@
 package com.app.aoede.ui.library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,16 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistView> {
     @Override
     public void onBindViewHolder(@NonNull PlaylistView holder, int position) {
         ArrayList<Track> playlistSelected = playlists.get(position);
+
+        ImageView art = holder.playlistArt;
+        art.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,PlaylistSelectedActivity.class);
+                intent.putExtra("playlistSongs",playlistSelected);
+                context.startActivity(intent);
+            }
+        });
 
 
     }
