@@ -29,7 +29,7 @@ public class LibraryFragment extends Fragment {
 
     public LibraryAdapter libraryAdapter;
     RecyclerView libraryRecycler;
-    ArrayList<Track> libraryList = new ArrayList<>();
+    public static ArrayList<Track> libraryList = new ArrayList<>();
     ArrayList<String> albumList = new ArrayList<>();
     SharedPreferences libraryShared;
     public static HashMap<String, String> albumArtistMap = new HashMap<>();

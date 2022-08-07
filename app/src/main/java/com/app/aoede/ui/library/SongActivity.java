@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.app.aoede.R;
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ public class SongActivity extends AppCompatActivity {
             TypeToken<ArrayList<Track>> token = new TypeToken<ArrayList<Track>>(){};
             Gson gson = new Gson();
             songList = gson.fromJson(library, token.getType());
+            Log.d("spotAuthent", String.valueOf(songList));
         }
 
         songRecycler = findViewById(R.id.songRecycler);

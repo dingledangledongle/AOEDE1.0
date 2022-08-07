@@ -1,7 +1,9 @@
 package com.app.aoede;
 
 
+import static com.app.aoede.MainActivity.playerArt;
 import static com.app.aoede.MainActivity.playerBtn;
+import static com.app.aoede.MainActivity.playerTitle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -165,6 +167,8 @@ public class MediaplayerActivity extends AppCompatActivity {
 
         songTitle.setText(title);
         songArtist.setText(artist);
+        playerTitle.setText(title);
+        Picasso.get().load(imgUrl).into(playerArt);
         Picasso.get().load(imgUrl).into(albumArt);
         Picasso.get().load(imgUrl).into(background);
 

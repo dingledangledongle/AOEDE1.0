@@ -5,11 +5,9 @@ import static com.app.aoede.MediaplayerActivity.playSong;
 import static com.app.aoede.ui.search.SearchAdapter.currentSong;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,14 +21,14 @@ import java.util.ArrayList;
 
 import kaaes.spotify.webapi.android.models.Track;
 
-public class SongAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
+public class AlbumAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
+
     Context context;
 
-    public SongAdapter(ArrayList<Track> songList) {
-        this.songList = songList;
+    public AlbumAdapter(ArrayList<Track> songInAlbum) {
+        this.songInAlbum = songInAlbum;
     }
-
-    ArrayList<Track> songList;
+    ArrayList<Track> songInAlbum;
 
     @NonNull
     @Override
@@ -45,7 +43,7 @@ public class SongAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
 
     @Override
     public void onBindViewHolder(@NonNull PlaylistSelectedView holder, int position) {
-        Track song = songList.get(position);
+        Track song = songInAlbum.get(position);
         String title = song.name;
         String artist = song.artists.get(0).name;
         String imgUrl = song.album.images.get(0).url;
@@ -55,15 +53,14 @@ public class SongAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
         holder.songArtist.setText(artist);
         Picasso.get().load(imgUrl).into(holder.songArt);
 
-        ImageView clickable = holder.clickable;
-        clickable.setOnClickListener(new View.OnClickListener() {
+        holder.clickable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.playerBtn.setImageResource(R.drawable.pause);
                 MainActivity.playerTitle.setText(title);
                 Picasso.get().load(imgUrl).into(MainActivity.playerArt);
                 currentSong = song;
-                MediaplayerActivity.songQueue = songList;
+                MediaplayerActivity.songQueue = songInAlbum;
                 playSong(songUrl);
                 displaySongInfo();
             }
@@ -73,6 +70,6 @@ public class SongAdapter extends RecyclerView.Adapter<PlaylistSelectedView> {
 
     @Override
     public int getItemCount() {
-        return songList.size();
+        return songInAlbum.size();
     }
 }
